@@ -1,0 +1,377 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);color:var(--color-text-primary)}
+.wrap{max-width:680px;margin:0 auto;padding:1.5rem 1rem 3rem}
+.header{margin-bottom:2rem;padding-bottom:1.25rem;border-bottom:0.5px solid var(--color-border-tertiary)}
+.header-top{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.logo{width:40px;height:40px;border-radius:50%;background:#1F4E79;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo svg{width:22px;height:22px;fill:white}
+h1{font-size:18px;font-weight:500;color:var(--color-text-primary)}
+.subtitle{font-size:13px;color:var(--color-text-secondary);margin-left:52px}
+.legend{display:flex;gap:8px;flex-wrap:wrap;margin:1.25rem 0 0;padding:12px;background:var(--color-background-secondary);border-radius:var(--border-radius-md)}
+.legend-label{font-size:12px;color:var(--color-text-secondary);font-weight:500;width:100%;margin-bottom:4px}
+.leg{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--color-text-secondary)}
+.leg-dot{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;flex-shrink:0}
+.section{margin-bottom:2rem;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
+.sec-header{padding:14px 16px;background:var(--color-background-secondary);border-bottom:0.5px solid var(--color-border-tertiary);display:flex;justify-content:space-between;align-items:center}
+.sec-title{font-size:14px;font-weight:500}
+.sec-score{font-size:13px;color:var(--color-text-secondary)}
+.sec-score span{font-weight:500;color:var(--color-text-primary)}
+.item{padding:14px 16px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.item:last-child{border-bottom:none}
+.item-q{font-size:13px;color:var(--color-text-primary);line-height:1.5;margin-bottom:10px}
+.rating{display:flex;gap:6px;flex-wrap:wrap}
+.r-btn{padding:5px 12px;border-radius:6px;border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);font-size:12px;cursor:pointer;color:var(--color-text-secondary);transition:all 0.1s}
+.r-btn:hover{border-color:var(--color-border-primary);color:var(--color-text-primary)}
+.r-btn.sel-1{background:#FAECE7;border-color:#D85A30;color:#993C1D}
+.r-btn.sel-2{background:#FAEEDA;border-color:#EF9F27;color:#854F0B}
+.r-btn.sel-3{background:#E6F1FB;border-color:#378ADD;color:#185FA5}
+.r-btn.sel-4{background:#EAF3DE;border-color:#639922;color:#3B6D11}
+.r-btn.sel-ns{background:var(--color-background-secondary);border-color:var(--color-border-primary);color:var(--color-text-secondary)}
+.progress-bar{height:4px;background:var(--color-background-secondary);border-radius:2px;margin:1rem 0 1.5rem;overflow:hidden}
+.progress-fill{height:100%;background:#378ADD;border-radius:2px;transition:width 0.3s}
+.progress-label{font-size:12px;color:var(--color-text-secondary);margin-bottom:6px}
+.summary{display:none;margin-top:2rem;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden}
+.sum-header{padding:16px;background:#1F4E79;color:white}
+.sum-title{font-size:16px;font-weight:500;margin-bottom:2px}
+.sum-sub{font-size:12px;opacity:0.8}
+.sum-body{padding:16px}
+.sum-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.25rem}
+.sum-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px}
+.sum-card-label{font-size:11px;color:var(--color-text-secondary);margin-bottom:4px}
+.sum-card-val{font-size:20px;font-weight:500}
+.sum-card-sub{font-size:11px;color:var(--color-text-secondary);margin-top:2px}
+.sec-results{margin-bottom:1rem}
+.sec-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.sec-row-label{font-size:12px;color:var(--color-text-secondary);width:160px;flex-shrink:0}
+.sec-bar{flex:1;height:10px;background:var(--color-background-secondary);border-radius:5px;overflow:hidden}
+.sec-bar-fill{height:100%;border-radius:5px}
+.sec-row-pct{font-size:12px;font-weight:500;min-width:36px;text-align:right}
+.priorities{margin-top:1rem}
+.priority-tag{display:inline-block;font-size:11px;padding:3px 8px;border-radius:4px;margin:3px;background:#FAECE7;color:#993C1D;border:0.5px solid #F0997B}
+.strong-tag{background:#EAF3DE;color:#3B6D11;border-color:#97C459}
+.actions{display:flex;gap:10px;margin-top:1.25rem;flex-wrap:wrap}
+.btn-primary{padding:9px 18px;border-radius:var(--border-radius-md);border:none;background:#1F4E79;color:white;font-size:13px;cursor:pointer;font-weight:500}
+.btn-primary:hover{background:#185294}
+.btn-sec{padding:9px 18px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);color:var(--color-text-primary);font-size:13px;cursor:pointer}
+.btn-sec:hover{background:var(--color-background-secondary)}
+.name-field{width:100%;padding:8px 12px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:var(--color-background-primary);font-size:13px;color:var(--color-text-primary);margin-bottom:1rem}
+.name-field:focus{outline:none;border-color:var(--color-border-primary)}
+.sticky-progress{position:sticky;top:0;background:var(--color-background-primary);z-index:10;padding:8px 16px;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;align-items:center;gap:12px}
+.sticky-count{font-size:12px;color:var(--color-text-secondary);white-space:nowrap}
+.sticky-bar{flex:1;height:6px;background:var(--color-background-secondary);border-radius:3px;overflow:hidden}
+.sticky-fill{height:100%;background:#378ADD;border-radius:3px;transition:width 0.3s}
+.submit-row{text-align:center;padding:1.5rem 0}
+</style>
+
+<div class="wrap">
+  <h2 class="sr-only">San Bruno Park School District Board of Education Self-Evaluation Tool</h2>
+
+  <div class="header">
+    <div class="header-top">
+      <div class="logo">
+        <svg viewBox="0 0 24 24"><path d="M12 3L2 9l10 6 10-6-10-6zm0 2.18L19.36 9 12 12.82 4.64 9 12 5.18zM2 14l10 6 10-6-1.38-.83L12 17.18l-8.62-4.01L2 14zm0 4l10 6 10-6-1.38-.83L12 21.18l-8.62-4.01L2 18z"/></svg>
+      </div>
+      <div>
+        <h1>Board of education self-evaluation</h1>
+        <div style="font-size:12px;color:var(--color-text-secondary)">San Bruno Park School District · 2025–2026</div>
+      </div>
+    </div>
+    <div class="subtitle" style="margin-left:0;margin-top:10px;font-size:13px;color:var(--color-text-secondary);line-height:1.6">Each trustee completes this individually. Results should be compiled and discussed as a full governance team in open session, consistent with Brown Act requirements.</div>
+
+    <div style="margin-top:14px">
+      <label style="font-size:12px;font-weight:500;color:var(--color-text-secondary);display:block;margin-bottom:4px">Your name (optional)</label>
+      <input type="text" class="name-field" id="member-name" placeholder="Board member name">
+    </div>
+
+    <div class="legend">
+      <div class="legend-label">Rating scale</div>
+      <div class="leg"><div class="leg-dot" style="background:#FAECE7;color:#993C1D">1</div>Rarely / not yet</div>
+      <div class="leg"><div class="leg-dot" style="background:#FAEEDA;color:#854F0B">2</div>Sometimes</div>
+      <div class="leg"><div class="leg-dot" style="background:#E6F1FB;color:#185FA5">3</div>Often</div>
+      <div class="leg"><div class="leg-dot" style="background:#EAF3DE;color:#3B6D11">4</div>Almost always</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--color-background-secondary);color:var(--color-text-secondary)">?</div>Not sure</div>
+    </div>
+  </div>
+
+  <div class="sticky-progress" id="sticky-bar">
+    <span class="sticky-count" id="sticky-count">0 of 40 answered</span>
+    <div class="sticky-bar"><div class="sticky-fill" id="sticky-fill" style="width:0%"></div></div>
+  </div>
+
+  <div id="sections-container"></div>
+
+  <div class="submit-row">
+    <button class="btn-primary" onclick="showSummary()">View my results</button>
+  </div>
+
+  <div class="summary" id="summary">
+    <div class="sum-header">
+      <div class="sum-title" id="sum-title">Self-evaluation results</div>
+      <div class="sum-sub" id="sum-sub">San Bruno Park School District · 2025–2026</div>
+    </div>
+    <div class="sum-body">
+      <div class="sum-grid">
+        <div class="sum-card">
+          <div class="sum-card-label">Overall score</div>
+          <div class="sum-card-val" id="overall-score">—</div>
+          <div class="sum-card-sub" id="overall-label">—</div>
+        </div>
+        <div class="sum-card">
+          <div class="sum-card-label">Questions answered</div>
+          <div class="sum-card-val" id="q-answered">—</div>
+          <div class="sum-card-sub">of 40 total</div>
+        </div>
+      </div>
+
+      <div style="font-size:13px;font-weight:500;margin-bottom:10px">Score by governance area</div>
+      <div class="sec-results" id="sec-results"></div>
+
+      <div class="priorities" id="priorities-area"></div>
+
+      <div class="actions">
+        <button class="btn-primary" onclick="printResults()"><i class="ti ti-printer" aria-hidden="true" style="margin-right:6px"></i>Print / save as PDF</button>
+        <button class="btn-sec" onclick="sendToChat()">Discuss results with Claude ↗</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SECTIONS = [
+  {
+    id: "vision",
+    title: "A. Vision and goals",
+    items: [
+      "The board has established a clear, shared vision focused on student achievement for all students.",
+      "The board has adopted measurable district goals aligned with the LCAP and the district's strategic priorities.",
+      "Board decisions are consistently guided by district goals rather than individual agendas.",
+      "The board regularly monitors progress toward district goals using data (e.g., CAASPP, Dashboard, GreatSchools).",
+      "The board communicates the district's vision and priorities clearly to the community.",
+      "The board ensures equity and inclusion are embedded in its goals and decision-making."
+    ]
+  },
+  {
+    id: "policy",
+    title: "B. Policy and accountability",
+    items: [
+      "The board adopts policies that reflect current law, community values, and best practices.",
+      "Board policies are regularly reviewed and updated (first readings, second readings, adoption).",
+      "The board holds the superintendent accountable to board-adopted goals and policies.",
+      "The board conducts a meaningful annual superintendent evaluation tied to district goals.",
+      "The board avoids micromanaging district operations and trusts the superintendent to lead.",
+      "The board appropriately delegates authority to the superintendent while retaining oversight."
+    ]
+  },
+  {
+    id: "finance",
+    title: "C. Fiscal stewardship",
+    items: [
+      "The board adopts a budget that aligns with the district's educational priorities.",
+      "The board monitors the budget throughout the year and responds appropriately to fiscal changes.",
+      "The board understands the district's financial condition, including reserves and long-term obligations.",
+      "The board ensures responsible stewardship of public funds and approves expenditures transparently.",
+      "The board understands the implications of state funding (LCFF) for district planning."
+    ]
+  },
+  {
+    id: "governance",
+    title: "D. Governance culture and relationships",
+    items: [
+      "The board operates as a cohesive governance team, respecting diverse perspectives.",
+      "Board members understand and respect the boundary between governance and management.",
+      "The board president leads meetings effectively and equitably.",
+      "Individual board members refrain from directing staff or taking unilateral action.",
+      "The board and superintendent operate with mutual trust and open communication.",
+      "The board engages in ongoing governance training and professional development (e.g., CSBA).",
+      "The board conducts regular self-evaluation to improve its own performance."
+    ]
+  },
+  {
+    id: "community",
+    title: "E. Community and stakeholder engagement",
+    items: [
+      "The board actively seeks input from parents, staff, and community before making major decisions.",
+      "Board meetings are accessible, welcoming, and conducted in a way that encourages public participation.",
+      "The board ensures meaningful translation and outreach to non-English-speaking families.",
+      "The board advocates for SBPSD students and public education at the local, state, and federal levels.",
+      "The board communicates district progress and needs to the broader San Bruno community."
+    ]
+  },
+  {
+    id: "meetings",
+    title: "F. Board meeting operations",
+    items: [
+      "Board meeting agendas are well-organized and reflect district priorities.",
+      "Board members come to meetings prepared, having reviewed materials in advance.",
+      "Consent agendas are used appropriately and board members understand items before approving.",
+      "The board complies with the Brown Act requirements for open meetings and public comment.",
+      "Board discussions are substantive, respectful, and focused on student outcomes.",
+      "Action items reflect sound reasoning and are accompanied by sufficient information for informed decision-making.",
+      "Closed session is used only for matters legally permitted under the Brown Act."
+    ]
+  }
+];
+
+const ratings = {};
+let totalQ = 0;
+
+function buildSections() {
+  const container = document.getElementById('sections-container');
+  SECTIONS.forEach(sec => {
+    totalQ += sec.items.length;
+    const secEl = document.createElement('div');
+    secEl.className = 'section';
+    secEl.id = 'sec-' + sec.id;
+
+    let itemsHTML = sec.items.map((q, qi) => {
+      const key = sec.id + '_' + qi;
+      return `<div class="item">
+        <div class="item-q">${q}</div>
+        <div class="rating" data-key="${key}">
+          <button type="button" class="r-btn" data-val="1" onclick="rate('${key}',1,this)">1 — Rarely</button>
+          <button type="button" class="r-btn" data-val="2" onclick="rate('${key}',2,this)">2 — Sometimes</button>
+          <button type="button" class="r-btn" data-val="3" onclick="rate('${key}',3,this)">3 — Often</button>
+          <button type="button" class="r-btn" data-val="4" onclick="rate('${key}',4,this)">4 — Almost always</button>
+          <button type="button" class="r-btn" data-val="ns" onclick="rate('${key}','ns',this)">Not sure</button>
+        </div>
+      </div>`;
+    }).join('');
+
+    secEl.innerHTML = `
+      <div class="sec-header">
+        <div class="sec-title">${sec.title}</div>
+        <div class="sec-score" id="score-${sec.id}"><span>—</span></div>
+      </div>
+      ${itemsHTML}`;
+    container.appendChild(secEl);
+  });
+  document.getElementById('sticky-count').textContent = '0 of ' + totalQ + ' answered';
+}
+
+function rate(key, val, btn) {
+  ratings[key] = val;
+  const container = btn.closest('.rating');
+  container.querySelectorAll('.r-btn').forEach(b => {
+    b.className = 'r-btn';
+    if (b.dataset.val == val) {
+      b.className = val === 'ns' ? 'r-btn sel-ns' : 'r-btn sel-' + val;
+    }
+  });
+  updateProgress();
+  updateSectionScore(key.split('_')[0]);
+}
+
+function updateProgress() {
+  const answered = Object.keys(ratings).length;
+  const pct = Math.round((answered / totalQ) * 100);
+  document.getElementById('sticky-fill').style.width = pct + '%';
+  document.getElementById('sticky-count').textContent = answered + ' of ' + totalQ + ' answered';
+}
+
+function updateSectionScore(secId) {
+  const sec = SECTIONS.find(s => s.id === secId);
+  if (!sec) return;
+  const vals = sec.items.map((_, qi) => ratings[secId + '_' + qi]).filter(v => v && v !== 'ns').map(Number);
+  const el = document.getElementById('score-' + secId);
+  if (vals.length === 0) { el.innerHTML = '<span>—</span>'; return; }
+  const avg = vals.reduce((a,b) => a+b, 0) / vals.length;
+  el.innerHTML = '<span>' + avg.toFixed(1) + ' / 4.0</span>';
+}
+
+function getOverall() {
+  const all = Object.entries(ratings).filter(([k,v]) => v !== 'ns').map(([k,v]) => Number(v));
+  if (all.length === 0) return null;
+  return all.reduce((a,b) => a+b, 0) / all.length;
+}
+
+function pctColor(pct) {
+  if (pct >= 80) return '#639922';
+  if (pct >= 60) return '#378ADD';
+  if (pct >= 40) return '#EF9F27';
+  return '#D85A30';
+}
+
+function showSummary() {
+  const answered = Object.keys(ratings).length;
+  const overall = getOverall();
+  const name = document.getElementById('member-name').value.trim();
+
+  document.getElementById('sum-title').textContent = name ? name + '\u2019s self-evaluation results' : 'Self-evaluation results';
+  document.getElementById('q-answered').textContent = answered;
+
+  if (overall !== null) {
+    const pct = Math.round((overall / 4) * 100);
+    document.getElementById('overall-score').textContent = overall.toFixed(2) + ' / 4.00';
+    const label = overall >= 3.5 ? 'Strong governance performance' : overall >= 2.5 ? 'Solid with areas for growth' : overall >= 1.5 ? 'Several areas need attention' : 'Significant improvement needed';
+    document.getElementById('overall-label').textContent = label;
+    document.getElementById('overall-score').style.color = pctColor(pct);
+  } else {
+    document.getElementById('overall-score').textContent = 'No data';
+    document.getElementById('overall-label').textContent = 'Rate items to see your score';
+  }
+
+  const secRes = document.getElementById('sec-results');
+  secRes.innerHTML = '';
+  const strengths = [], priorities = [];
+
+  SECTIONS.forEach(sec => {
+    const vals = sec.items.map((_, qi) => ratings[sec.id + '_' + qi]).filter(v => v && v !== 'ns').map(Number);
+    if (vals.length === 0) return;
+    const avg = vals.reduce((a,b)=>a+b,0)/vals.length;
+    const pct = Math.round((avg/4)*100);
+    const color = pctColor(pct);
+    const shortTitle = sec.title.replace(/^[A-Z]\. /, '');
+    if (avg >= 3.0) strengths.push(shortTitle);
+    if (avg < 2.5) priorities.push(shortTitle);
+
+    secRes.innerHTML += `<div class="sec-row">
+      <div class="sec-row-label">${shortTitle}</div>
+      <div class="sec-bar"><div class="sec-bar-fill" style="width:${pct}%;background:${color}"></div></div>
+      <div class="sec-row-pct" style="color:${color}">${avg.toFixed(1)}</div>
+    </div>`;
+  });
+
+  const priArea = document.getElementById('priorities-area');
+  priArea.innerHTML = '';
+  if (strengths.length > 0) {
+    priArea.innerHTML += `<div style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:4px">Areas of strength</div>`;
+    priArea.innerHTML += strengths.map(s => `<span class="priority-tag strong-tag">${s}</span>`).join('');
+  }
+  if (priorities.length > 0) {
+    priArea.innerHTML += `<div style="font-size:12px;font-weight:500;color:var(--color-text-secondary);margin:10px 0 4px">Priority areas for growth</div>`;
+    priArea.innerHTML += priorities.map(s => `<span class="priority-tag">${s}</span>`).join('');
+  }
+
+  const summary = document.getElementById('summary');
+  summary.style.display = 'block';
+  summary.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function sendToChat() {
+  const name = document.getElementById('member-name').value.trim();
+  const overall = getOverall();
+  let msg = 'I just completed the SBPSD board self-evaluation. ';
+  if (name) msg += 'My name is ' + name + '. ';
+  if (overall !== null) msg += 'My overall average was ' + overall.toFixed(2) + ' out of 4.0. ';
+
+  const secSummaries = [];
+  SECTIONS.forEach(sec => {
+    const vals = sec.items.map((_,qi) => ratings[sec.id+'_'+qi]).filter(v=>v&&v!=='ns').map(Number);
+    if (vals.length > 0) {
+      const avg = (vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1);
+      secSummaries.push(sec.title.replace(/^[A-Z]\. /,'') + ': ' + avg);
+    }
+  });
+  if (secSummaries.length > 0) msg += 'Scores by area — ' + secSummaries.join(', ') + '. ';
+  msg += 'Can you help me interpret these results and suggest governance goals for next year?';
+  sendPrompt(msg);
+}
+
+function printResults() {
+  window.print();
+}
+
+buildSections();
+</script>
